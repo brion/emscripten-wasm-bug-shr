@@ -1,7 +1,7 @@
 all : test.html test.wat
 
 test.html : test.c Makefile
-	emcc -o test.html -O3 -g4 -s SIMD=1 -fno-vectorize test.c
+	emcc -o test.html -O3 -g4 -s SIMD=1 test.c
 
 test.wat : test.html
 	wasm-dis test.wasm > test.wat
