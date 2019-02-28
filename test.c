@@ -40,13 +40,21 @@ static inline uint8x16 merge_pixels(const int16x8 work, const uint8x16 orig) {
     );
 }
 
-static void dostuff(uint8_t *dst, ptrdiff_t stride) {
+__attribute__((noinline))
+static int16x8 do_shift(int16x8 px_v)
+{
+    return (px_v - 1) >> 4;
+}
+
+__attribute__((noinline))
+static void dostuff(uint8_t *dst, ptrdiff_t stride)
+{
     const int x = 0;
 
     const uint8x16 px_raw = *(const uint8x16 *)(&dst[x]);
     int16x8 px_v = expand_pixels(px_raw);
 
-    px_v = (px_v - 1) >> 4;
+    px_v = do_shift(px_v);
 
     const uint64_t dst_64 = ((uint64x2)merge_pixels(px_v, px_raw))[0];
     *(uint64_t *)(&dst[0]) = dst_64;
