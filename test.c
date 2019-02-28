@@ -33,6 +33,13 @@ static inline int16x8 expand_pixels(const uint8x16 pixels) {
     );
 }
 
+static inline uint8x16 merge_pixels(const int16x8 work, const uint8x16 orig) {
+    return (uint8x16)__builtin_shufflevector((uint8x16)work, orig,
+         0,  2,  4,  6,   8, 10, 12, 14, // the 8 pixels we worked on
+        24, 25, 26, 27,  28, 29, 30, 31 // the next 8 pixels, not yet processed
+    );
+}
+
 static void dostuff(uint8_t *dst, ptrdiff_t stride) {
     const int x = 0;
 
@@ -41,14 +48,8 @@ static void dostuff(uint8_t *dst, ptrdiff_t stride) {
 
     px_v = (px_v - 1) >> 4;
 
-    dst[x] = px_v[0];
-    dst[x + 1] = px_v[1];
-    dst[x + 2] = px_v[2];
-    dst[x + 3] = px_v[3];
-    dst[x + 4] = px_v[4];
-    dst[x + 5] = px_v[5];
-    dst[x + 6] = px_v[6];
-    dst[x + 7] = px_v[7];
+    const uint64_t dst_64 = ((uint64x2)merge_pixels(px_v, px_raw))[0];
+    *(uint64_t *)(&dst[0]) = dst_64;
 }
 
 int main(int argc, const char **argv) {

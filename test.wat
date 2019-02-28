@@ -90,28 +90,119 @@
    )
    (i64.const 8603657889541918976)
   )
-  (i32.store offset=28
+  (i32.store offset=16
    (local.get $0)
    (i32.and
-    (i32.shr_s
-     (i16x8.extract_lane_s 7
+    (local.tee $1
+     (i32x4.extract_lane 1
       (local.tee $2
-       (i16x8.add
-        (v8x16.shuffle 0 16 1 16 2 16 3 16 4 16 5 16 6 16 7 16
-         (v128.load
-          (local.get $1)
+       (v8x16.shuffle 0 2 4 6 8 10 12 14 0 0 0 0 0 0 0 0
+        (i16x8.replace_lane 7
+         (i16x8.replace_lane 6
+          (i16x8.replace_lane 5
+           (i16x8.replace_lane 4
+            (i16x8.replace_lane 3
+             (i16x8.replace_lane 2
+              (i16x8.replace_lane 1
+               (i16x8.splat
+                (i32.shr_u
+                 (i32.and
+                  (i16x8.extract_lane_s 0
+                   (local.tee $2
+                    (i16x8.add
+                     (v8x16.shuffle 0 16 1 16 2 16 3 16 4 16 5 16 6 16 7 16
+                      (v128.load
+                       (local.get $1)
+                      )
+                      (i8x16.splat
+                       (i32.const 0)
+                      )
+                     )
+                     (i16x8.splat
+                      (i32.const -1)
+                     )
+                    )
+                   )
+                  )
+                  (i32.const 65520)
+                 )
+                 (i32.const 4)
+                )
+               )
+               (i32.shr_u
+                (i32.and
+                 (i16x8.extract_lane_s 1
+                  (local.get $2)
+                 )
+                 (i32.const 65520)
+                )
+                (i32.const 4)
+               )
+              )
+              (i32.shr_u
+               (i32.and
+                (i16x8.extract_lane_s 2
+                 (local.get $2)
+                )
+                (i32.const 65520)
+               )
+               (i32.const 4)
+              )
+             )
+             (i32.shr_u
+              (i32.and
+               (i16x8.extract_lane_s 3
+                (local.get $2)
+               )
+               (i32.const 65520)
+              )
+              (i32.const 4)
+             )
+            )
+            (i32.shr_u
+             (i32.and
+              (i16x8.extract_lane_s 4
+               (local.get $2)
+              )
+              (i32.const 65520)
+             )
+             (i32.const 4)
+            )
+           )
+           (i32.shr_u
+            (i32.and
+             (i16x8.extract_lane_s 5
+              (local.get $2)
+             )
+             (i32.const 65520)
+            )
+            (i32.const 4)
+           )
+          )
+          (i32.shr_u
+           (i32.and
+            (i16x8.extract_lane_s 6
+             (local.get $2)
+            )
+            (i32.const 65520)
+           )
+           (i32.const 4)
+          )
          )
-         (i8x16.splat
-          (i32.const 0)
+         (i32.shr_u
+          (i32.and
+           (i16x8.extract_lane_s 7
+            (local.get $2)
+           )
+           (i32.const 65520)
+          )
+          (i32.const 4)
          )
         )
-        (i16x8.splat
-         (i32.const -1)
-        )
+        (local.get $2)
        )
       )
      )
-     (i32.const 4)
     )
     (i32.const 255)
    )
@@ -119,11 +210,9 @@
   (i32.store offset=24
    (local.get $0)
    (i32.and
-    (i32.shr_s
-     (i16x8.extract_lane_s 6
-      (local.get $2)
-     )
-     (i32.const 4)
+    (i32.shr_u
+     (local.get $1)
+     (i32.const 16)
     )
     (i32.const 255)
    )
@@ -131,47 +220,49 @@
   (i32.store offset=20
    (local.get $0)
    (i32.and
-    (i32.shr_s
-     (i16x8.extract_lane_s 5
-      (local.get $2)
-     )
-     (i32.const 4)
+    (i32.shr_u
+     (local.get $1)
+     (i32.const 8)
     )
     (i32.const 255)
    )
   )
-  (i32.store offset=16
+  (i64.store32 offset=28
    (local.get $0)
-   (i32.and
-    (i32.shr_s
-     (i16x8.extract_lane_s 4
-      (local.get $2)
+   (i64.shr_u
+    (i64.shl
+     (i64.extend_i32_u
+      (local.get $1)
      )
-     (i32.const 4)
+     (i64.const 32)
     )
-    (i32.const 255)
+    (i64.const 56)
    )
   )
   (i32.store offset=12
    (local.get $0)
-   (i32.and
-    (i32.shr_s
-     (i16x8.extract_lane_s 3
+   (i32.shr_u
+    (local.tee $1
+     (i32x4.extract_lane 0
       (local.get $2)
      )
-     (i32.const 4)
     )
+    (i32.const 24)
+   )
+  )
+  (i32.store
+   (local.get $0)
+   (i32.and
+    (local.get $1)
     (i32.const 255)
    )
   )
   (i32.store offset=8
    (local.get $0)
    (i32.and
-    (i32.shr_s
-     (i16x8.extract_lane_s 2
-      (local.get $2)
-     )
-     (i32.const 4)
+    (i32.shr_u
+     (local.get $1)
+     (i32.const 16)
     )
     (i32.const 255)
    )
@@ -179,23 +270,9 @@
   (i32.store offset=4
    (local.get $0)
    (i32.and
-    (i32.shr_s
-     (i16x8.extract_lane_s 1
-      (local.get $2)
-     )
-     (i32.const 4)
-    )
-    (i32.const 255)
-   )
-  )
-  (i32.store
-   (local.get $0)
-   (i32.and
     (i32.shr_u
-     (i16x8.extract_lane_s 0
-      (local.get $2)
-     )
-     (i32.const 4)
+     (local.get $1)
+     (i32.const 8)
     )
     (i32.const 255)
    )
@@ -16909,11 +16986,11 @@
   )
  )
  ;; custom section "sourceMappingURL", size 14
- ;; custom section ".debug_info", size 426
+ ;; custom section ".debug_info", size 556
  ;; custom section ".debug_macinfo", size 1
- ;; custom section ".debug_ranges", size 72
+ ;; custom section ".debug_ranges", size 96
  ;; custom section ".debug_abbrev", size 235
- ;; custom section ".debug_line", size 291
- ;; custom section ".debug_str", size 395
+ ;; custom section ".debug_line", size 278
+ ;; custom section ".debug_str", size 466
 )
 
